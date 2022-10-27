@@ -3,14 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Map from "./Map";
+import mapboxgl from "mapbox-gl";
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const mapClickLog = (mapEvent: mapboxgl.MapMouseEvent) => {
+  console.log(mapEvent.lngLat.wrap());
+}
+
 root.render(
   <React.StrictMode>
-    <Map/>
+    <Map onClickCB={mapClickLog} />
   </React.StrictMode>
 );
 

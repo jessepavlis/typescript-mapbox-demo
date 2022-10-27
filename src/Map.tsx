@@ -7,7 +7,11 @@ import MapGeocoder from "./MapGeocoder";
 if (!process.env.REACT_APP_MAPBOX_TOKEN) throw new Error("You need to set REACT_APP_MAPBOX_TOKEN")
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 
-const Map = () => {
+interface MapProps {
+  onClickCB?: (map: mapboxgl.MapMouseEvent) => void
+}
+
+const Map = ({ onClickCB }: MapProps) => {
 
   const mapContainer = useRef(null);
   // const map = useRef<mapboxgl.Map | null>(null);
@@ -26,6 +30,10 @@ const Map = () => {
       center: [-70.9, 42.35],
       zoom: 9
     });
+
+    if (onClickCB) {
+      newMap.on('click', onClickCB);
+    }
 
     setMap(newMap);
 
